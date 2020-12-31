@@ -1,0 +1,8 @@
+## Database connection
+quarkus:
+  datasource:
+    db-kind: postgresql
+    db-username: root
+    db-password: root
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/dev
