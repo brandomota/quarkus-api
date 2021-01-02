@@ -1,10 +1,8 @@
 package org.poc.models;
 
-import lombok.Builder;
-import lombok.Data;
-import java.util.*;
-import javax.persistence.Column;
+import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +10,9 @@ import javax.persistence.Table;
 @Builder
 @Entity
 @Table(schema = "public", name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseModel {
 
     @Column(unique = true, length = 100)

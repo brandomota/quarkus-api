@@ -1,12 +1,13 @@
 package org.poc.models;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 import java.util.Date;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 
 @MappedSuperclass
-public class BaseModel {
+public class BaseModel extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
