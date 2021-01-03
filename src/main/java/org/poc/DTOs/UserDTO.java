@@ -1,13 +1,15 @@
 package org.poc.DTOs;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import lombok.*;
 
 import java.util.Date;
 
 @Data
 @Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
+@RegisterForReflection
 public class UserDTO {
     private Long id;
 
