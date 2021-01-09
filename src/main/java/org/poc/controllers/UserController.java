@@ -1,5 +1,6 @@
 package org.poc.controllers;
 
+import io.quarkus.funqy.Funq;
 import org.poc.DTOs.UserDTO;
 import org.poc.services.interfaces.UserService;
 
@@ -7,6 +8,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
@@ -20,13 +23,40 @@ public class UserController {
 
     @GET
     public Response getAllUsers() {
-        var result = userService.findAll().stream()
-                .map(u -> UserDTO.builder().id(u.getId())
-                    .name(u.getName())
-                    .email(u.getEmail())
-                    .createdAt(u.getCreatedAt())
-                    .updatedAt(u.getUpdatedAt())).collect(toList());
-        return Response.ok(result).build();
+        try {
+            var result = userService.findAll().stream()
+                    .map(u -> UserDTO.builder().id(u.getId())
+                            .name(u.getName())
+                            .email(u.getEmail())
+                            .createdAt(u.getCreatedAt())
+                            .updatedAt(u.getUpdatedAt())
+                            .build()).collect(toList());
+            return Response.ok(result).build();
+
+        } catch (Exception e) {
+            return Response.ok(e.toString()).status(Response.Status.BAD_REQUEST).build();
+        }
+
+    }
+
+    @GET()
+    @Path("/find")
+    @Funq
+    public Response serchUsers(Map<String,String> query) {
+        try {
+            var result = userService.findUsers(query).stream()
+                    .map(u -> UserDTO.builder().id(u.getId())
+                            .name(u.getName())
+                            .email(u.getEmail())
+                            .updatedAt(u.getUpdatedAt())
+                            .createdAt(u.getCreatedAt())
+                            .build())
+                    .collect(toList());
+            return Response.ok(result).build();
+
+        } catch (Exception e) {
+            return Response.ok(e.toString()).status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
     @POST

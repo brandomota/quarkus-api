@@ -2,6 +2,7 @@ package org.poc.services;
 
 import lombok.NonNull;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.poc.DTOs.UserDTO;
 import org.poc.models.User;
 import org.poc.repositories.interfaces.UserRepository;
@@ -16,6 +17,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @ApplicationScoped
 public class UserServiceImpl implements UserService {
@@ -33,6 +35,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return this.userRepository.listAll();
+    }
+
+    @Override
+    public List<User> findUsers(Map<String,String> query) {
+        throw new NotYetImplementedException("estudar melhor aplicação de algo similar ao uso do criteria API");
     }
 
     @Override
