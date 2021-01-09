@@ -15,10 +15,13 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 public class User extends BaseModel {
 
-    @Column(unique = true, length = 100)
+    @Column(unique = true, length = 100, nullable = false)
     private String name;
 
-    @Column(unique = true, length = 100)
+    @Column(unique = true, length = 100, nullable = false)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
 }
 
