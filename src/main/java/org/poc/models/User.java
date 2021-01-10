@@ -2,9 +2,8 @@ package org.poc.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Builder
@@ -23,5 +22,8 @@ public class User extends BaseModel {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
 }
 

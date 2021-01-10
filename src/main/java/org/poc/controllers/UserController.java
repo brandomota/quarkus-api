@@ -1,7 +1,9 @@
 package org.poc.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.funqy.Funq;
 import org.poc.DTOs.UserDTO;
+import org.poc.Utils.RequestUtils;
 import org.poc.services.interfaces.UserService;
 
 import javax.inject.Inject;
@@ -9,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
@@ -39,12 +42,13 @@ public class UserController {
 
     }
 
+    @Funq
     @GET()
     @Path("/find")
-    @Funq
-    public Response serchUsers(Map<String,String> query) {
+    public Response searchUsers(@QueryParam("query") String query) {
         try {
-            var result = userService.findUsers(query).stream()
+            var mapQuery = RequestUtils.parseQuery(query);
+            var result = userService.findUsers(mapQuery).stream()
                     .map(u -> UserDTO.builder().id(u.getId())
                             .name(u.getName())
                             .email(u.getEmail())
